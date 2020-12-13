@@ -21,8 +21,9 @@ int main(int argc, char **argv) {
         const int N = 100000;
         int i;
 
-        double a[N];
-        double b[N];
+        double *a = (double*) malloc(N * sizeof(double));
+        double *b = (double*) malloc(N * sizeof(double));
+
 
         for (i = 0; i < N; i++)
         {
@@ -46,8 +47,9 @@ int main(int argc, char **argv) {
         }
 
         const int block_size = N / size;
-        double block_a[block_size];
-        double block_b[block_size];
+
+        double *block_a = (double*) malloc(block_size * sizeof(double));
+        double *block_b = (double*) malloc(block_size * sizeof(double));
 
         for (i = 0; i < block_size; i++)
         {
