@@ -11,7 +11,7 @@ double dot_product(double *a, double *b, int start_idx, int end_idx) {
 	int i;
 	double product = 0.0;
 
-	for (i = 0; start_idx < end_idx; i++)
+	for (i = start_idx; i < end_idx; i++)
 	{
 		product += a[i] * b[i];
 	}
