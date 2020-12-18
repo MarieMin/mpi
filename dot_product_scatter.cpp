@@ -7,7 +7,7 @@ using namespace std;
 
 #define N 1024
 
-double (double *a, double *b, int start_idx, int end_idx) {
+double dot_product(double *a, double *b, int start_idx, int end_idx) {
 	int i;
 	double product = 0.0;
 
