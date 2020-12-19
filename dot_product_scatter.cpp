@@ -2,6 +2,7 @@
 #include <mpi.h>
 #include <stdlib.h>
 #include <cstdlib>
+#include <math.h>
 
 using namespace std;
 
@@ -18,11 +19,17 @@ double dot_product(double *a, double *b, int start_idx, int end_idx) {
 	return product;
 }
 
+double payload(double x) {
+        return sinh(atan(cbrt(log(exp(pow(tan(asinh(x)),3.0))))));
+}
+
 main(int argc, char* argv[])
 {
 	double *a, *b, *local_a, *local_b;
-	double product = 0.0, 
-	double local_product = 0.0;
+	double product; 
+        double local_product;
+        product = 0.0;
+        local_product = 0.0;;
 
 	double start, stop;
 
@@ -34,7 +41,6 @@ main(int argc, char* argv[])
 	MPI_Comm_rank(MPI_COMM_WORLD, &proc_rank);
 
 	if (proc_rank == 0) {
-		printf("Enter the number of elements in each vector: "); scanf("%d", &n);
 		a = (double *)calloc(N, sizeof(double));
 		b = (double *)calloc(N, sizeof(double));
 		
@@ -57,6 +63,7 @@ main(int argc, char* argv[])
 
 	for (i = 0; i < block_size; i++)
 		local_product += local_a[i] * local_b[i];
+		// local_product += payload(local_a[i]) *payload( local_b[i]);
 	free(local_a); 
 	free(local_b);
 
@@ -74,6 +81,7 @@ main(int argc, char* argv[])
 		double seq_product = 0.0;
 		for (i = 0; i < N; i++)
 			seq_product += a[i] * b[i];
+			// seq_product += payload(a[i]) *payload(b[i]);
 
 		stop = MPI_Wtime();
 		printf("Seq dot product of %d elements: %f\n", N, seq_product);
